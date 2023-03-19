@@ -9,12 +9,12 @@ class RegisterReqModel(BaseModel):
     password: str
     mobile: int
 
+
 class RegisterResModel(ResBaseModel):
     name: str
     message: str = "User Registered Successfully"
     email: str = None
     mobile: str
-
 
 
 class LoginReqModel(BaseModel):

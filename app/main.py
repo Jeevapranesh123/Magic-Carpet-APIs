@@ -1,5 +1,8 @@
 import inspect
 import re
+import sys
+
+sys.dont_write_bytecode = True
 
 import uvicorn
 from elasticapm.contrib.starlette import ElasticAPM, make_apm_client

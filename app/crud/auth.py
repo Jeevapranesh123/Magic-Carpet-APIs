@@ -8,21 +8,30 @@ from app.models.auth import RegisterReqModel, RegisterResModel
 
 from app.core.config import settings
 
-async def check_existing_email(email:str, conn: AsyncIOMotorClient,):
+
+async def check_existing_email(
+    email: str,
+    conn: AsyncIOMotorClient,
+):
     data = await conn[settings.MONGO_PROD_DATABASE][
-            settings.MONGO_USERS_COLLECTION_NAME
-            ].find_one({"email": email})
+        settings.MONGO_USERS_COLLECTION_NAME
+    ].find_one({"email": email})
     if data:
         return True
     return False
 
-async def check_existing_mobile(mobile:int, conn: AsyncIOMotorClient,):
+
+async def check_existing_mobile(
+    mobile: int,
+    conn: AsyncIOMotorClient,
+):
     data = await conn[settings.MONGO_PROD_DATABASE][
-            settings.MONGO_USERS_COLLECTION_NAME
-            ].find_one({"mobile": mobile})
+        settings.MONGO_USERS_COLLECTION_NAME
+    ].find_one({"mobile": mobile})
     if data:
         return True
     return False
+
 
 async def register(register_obj, conn: AsyncIOMotorClient):
     print("Hello")
@@ -36,8 +45,8 @@ async def register(register_obj, conn: AsyncIOMotorClient):
         "updated_at": datetime.datetime.utcnow(),
     }
     res = await conn[settings.MONGO_PROD_DATABASE][
-            settings.MONGO_USERS_COLLECTION_NAME
-            ].insert_one(data)
+        settings.MONGO_USERS_COLLECTION_NAME
+    ].insert_one(data)
     if res:
         register_res = RegisterResModel(**data)
         print(register_res)

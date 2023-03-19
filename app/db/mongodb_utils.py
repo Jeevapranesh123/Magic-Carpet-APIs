@@ -17,4 +17,3 @@ async def close_mongo_connection():
     logger.info("Close database connection...")
     db.client.close()
     logger.info("The database connection is closed!")
-

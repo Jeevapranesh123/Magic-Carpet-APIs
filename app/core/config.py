@@ -8,6 +8,7 @@ from pydantic import BaseSettings, HttpUrl, validator
 
 load_dotenv(".env")
 
+
 class Settings(BaseSettings):
     BACKEND_CORS_ORIGINS: List = [
         "*",
