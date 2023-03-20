@@ -2,5 +2,5 @@ from pydantic import BaseModel
 
 
 class ResBaseModel(BaseModel):
-    status_code: int = 200
+    status: str = "success"
     message: str = "Request Successful"

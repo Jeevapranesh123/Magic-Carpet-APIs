@@ -26,9 +26,9 @@ class Settings(BaseSettings):
 
     MONGODB_URL: str = env.get("MONGODB_URL")
     MONGO_USERS_COLLECTION_NAME: str = "users"
-    MONGO_BOOKS_COLLECTION_NAME: str = "courses"
-    MONGO_CART_COLLECTION_NAME: str = "chapters"
-    MONGO_ORDERS_COLLECTION_NAME: str = "categories"
+    MONGO_BOOKS_COLLECTION_NAME: str = "books"
+    MONGO_CART_COLLECTION_NAME: str = "cart"
+    MONGO_ORDERS_COLLECTION_NAME: str = "orders"
     MONGO_PROD_DATABASE: str = env.get("MONGO_PROD_DATABASE")
     # print(MONGO_PROD_DATABASE)
 

@@ -11,12 +11,19 @@ class RegisterReqModel(BaseModel):
 
 
 class RegisterResModel(ResBaseModel):
+    tokens: Optional[dict]
+    user_details: dict
+
+class User(BaseModel):
+    uuid: str
     name: str
-    message: str = "User Registered Successfully"
-    email: str = None
-    mobile: str
+    email: str
+    mobile: int
 
 
 class LoginReqModel(BaseModel):
     email: str
     password: str
+
+class LoginResModel(ResBaseModel):
+    tokens: Optional[dict]

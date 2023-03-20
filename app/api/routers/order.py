@@ -1,12 +1,20 @@
 from app.db.mongodb import AsyncIOMotorClient, get_database
 from fastapi import APIRouter, HTTPException, Depends, Response
+from app.api.controllers import order as order_controller
+from app.models.order import Checkout
 
+from fastapi_jwt_auth import AuthJWT
 
 router = APIRouter()
 
 
-@router.post("/create", response_model="")
-async def create_order():
+@router.post("/checkout", response_model="")
+async def create_order(
+    checkout_obj: Checkout,
+    Authorize: AuthJWT = Depends(),
+    db: AsyncIOMotorClient = Depends(get_database),
+):
+    res = await order_controller.checkout(checkout_obj,Authorize, db)
     pass
 
 
