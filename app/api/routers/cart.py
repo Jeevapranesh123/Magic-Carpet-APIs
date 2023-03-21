@@ -15,7 +15,7 @@ async def add_to_cart(
 ):
     Authorize.jwt_required()
 
-    res = await cart_controller.add_to_cart(new_cart_item, Authorize,db)
+    res = await cart_controller.add_to_cart(new_cart_item, Authorize, db)
     return res
 
 
@@ -31,16 +31,18 @@ async def delete_from_cart(
     return res
 
 
-@router.post("/update", response_model="")
-async def update_cart():
-    pass
+# Future Implementation
+
+# @router.post("/update", response_model="")
+# async def update_cart():
+#     pass
 
 
-@router.get("/get", response_model="")
-async def get_cart():
-    pass
+# @router.get("/get", response_model="")
+# async def get_cart():
+#     pass
 
 
-@router.get("/get_all", response_model="")
-async def get_all_carts():
-    pass
+# @router.get("/get_all", response_model="")
+# async def get_all_carts():
+#     pass

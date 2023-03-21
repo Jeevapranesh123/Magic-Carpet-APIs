@@ -7,32 +7,33 @@ from datetime import datetime
 
 import pprint
 
+
 async def verify_cart_identity(checkout_obj, Authorize, db):
     cart = await db[settings.MONGO_PROD_DATABASE][
         settings.MONGO_CART_COLLECTION_NAME
     ].find_one({"uuid": Authorize.get_jwt_subject()})
 
     if cart:
-        if not cart['id']==checkout_obj.cart_id:
-            raise HTTPException(status_code=403, detail="This cart does not belong the current user")
-
+        if not cart["id"] == checkout_obj.cart_id:
+            raise HTTPException(
+                status_code=403, detail="This cart does not belong the current user"
+            )
 
 
 async def checkout(
-    checkout_obj:CheckOutFinal,
+    checkout_obj: CheckOutFinal,
     db: AsyncIOMotorClient,
 ):
-
     cart = await db[settings.MONGO_PROD_DATABASE][
         settings.MONGO_CART_COLLECTION_NAME
     ].find_one({"uuid": checkout_obj.cart_uuid})
 
     if not cart:
         raise HTTPException(status_code=400, detail="Cart not found")
-    
+
     if not cart["items"]:
         raise HTTPException(status_code=400, detail="Cart is empty")
-    
+
     order = {
         "id": str(uuid4()).split("-")[0],
         "cart_uuid": checkout_obj.cart_uuid,
@@ -41,7 +42,7 @@ async def checkout(
         "delivery_charges": checkout_obj.delivery_charges,
         "delivery_address": checkout_obj.address,
         "payment_method": checkout_obj.payment_method,
-        "items":[],
+        "items": [],
         "order_status": "placed",
         "order_date": datetime.now(),
         "delivery_date": checkout_obj.delivery_date,
@@ -53,24 +54,27 @@ async def checkout(
         ].find_one({"id": item["item_id"]})
 
         if product["quantity"] < item["quantity"]:
-            raise HTTPException(status_code=422, detail="Quantity not available for some items")
-        
+            raise HTTPException(
+                status_code=422, detail="Quantity not available for some items"
+            )
+
         order["order_total"] += product["price"] * item["quantity"]
-        order["items"].append({
-            "item_id": item["item_id"],
-            "name": item["name"],
-            "quantity": item["quantity"],
-            "price": product["price"],
-        })
+        order["items"].append(
+            {
+                "item_id": item["item_id"],
+                "name": item["name"],
+                "quantity": item["quantity"],
+                "price": product["price"],
+            }
+        )
 
         order["order_total"] += checkout_obj.delivery_charges
 
-    #TODO Implementing transaction here as there are multiple dependent operations
+    # TODO Implementing transaction here as there are multiple dependent operations
     if await db[settings.MONGO_PROD_DATABASE][
         settings.MONGO_ORDERS_COLLECTION_NAME
     ].insert_one(order):
-
-        for item in cart['items']:
+        for item in cart["items"]:
             await db[settings.MONGO_PROD_DATABASE][
                 settings.MONGO_BOOKS_COLLECTION_NAME
             ].update_one(
@@ -87,8 +91,6 @@ async def checkout(
 
         new_order = Order(**order)
         return new_order
-    
+
     else:
         raise HTTPException(status_code=500, detail="Something went wrong")
-
-    

@@ -5,9 +5,10 @@ from pydantic import BaseModel
 
 
 class Checkout(BaseModel):
-    cart_id : str
-    address : str = "XYZ"
-    payment_method : str = "COD"
+    cart_id: str
+    address: str = "XYZ"
+    payment_method: str = "COD"
+
 
 class CheckOutFinal(Checkout):
     cart_uuid: str
@@ -28,6 +29,7 @@ class Order(BaseModel):
     order_date: datetime
     delivery_date: datetime
     delivery_status: str
+
 
 class OrderRes(ResBaseModel):
     details: Order

@@ -8,11 +8,11 @@ from app.models.books import NewBook, BookInCreate, GetBook
 
 from app.core.config import settings
 
-async def check_existing_book(
-        name:str,
-        conn: AsyncIOMotorClient,
-):
 
+async def check_existing_book(
+    name: str,
+    conn: AsyncIOMotorClient,
+):
     data = await conn[settings.MONGO_PROD_DATABASE][
         settings.MONGO_BOOKS_COLLECTION_NAME
     ].find_one({"name": name})
@@ -20,10 +20,10 @@ async def check_existing_book(
         return True
     return False
 
-async def add_book(new_book: NewBook , conn: AsyncIOMotorClient):
 
+async def add_book(new_book: NewBook, conn: AsyncIOMotorClient):
     book_data = new_book.dict()
-    
+
     # Universally unique identifier is used as book id for now, replace it with meaningful id depending on the use case
     book_data["id"] = str(uuid4()).split("-")[0]
     book_data["added_at"] = datetime.datetime.utcnow()
@@ -38,12 +38,12 @@ async def add_book(new_book: NewBook , conn: AsyncIOMotorClient):
         return new_book
     return False
 
-async def get_books(conn: AsyncIOMotorClient):
 
+async def get_books(conn: AsyncIOMotorClient):
     data = conn[settings.MONGO_PROD_DATABASE][
         settings.MONGO_BOOKS_COLLECTION_NAME
     ].find()
-    
+
     books = []
 
     async for book in data:
@@ -51,8 +51,8 @@ async def get_books(conn: AsyncIOMotorClient):
 
     return books
 
-async def get_book(id:str,conn: AsyncIOMotorClient):
-    
+
+async def get_book(id: str, conn: AsyncIOMotorClient):
     data = await conn[settings.MONGO_PROD_DATABASE][
         settings.MONGO_BOOKS_COLLECTION_NAME
     ].find_one({"id": id})

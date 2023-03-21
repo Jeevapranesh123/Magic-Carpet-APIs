@@ -18,19 +18,12 @@ class Settings(BaseSettings):
     PROJECT_DESCRIPTION: str = env.get("PROJECT_DESCRIPTION")
     API_ROOT_PATH: str = env.get("API_ROOT_PATH", "")
 
-    # @validator("SENTRY_DSN", pre=True)
-    # def sentry_dsn_can_be_blank(cls, v: str) -> Optional[str]:
-    #     if v is not None and len(v) == 0:
-    #         return None
-    #     return v
-
     MONGODB_URL: str = env.get("MONGODB_URL")
     MONGO_USERS_COLLECTION_NAME: str = "users"
     MONGO_BOOKS_COLLECTION_NAME: str = "books"
     MONGO_CART_COLLECTION_NAME: str = "cart"
     MONGO_ORDERS_COLLECTION_NAME: str = "orders"
     MONGO_PROD_DATABASE: str = env.get("MONGO_PROD_DATABASE")
-    # print(MONGO_PROD_DATABASE)
 
     class Config:
         case_sensitive = True

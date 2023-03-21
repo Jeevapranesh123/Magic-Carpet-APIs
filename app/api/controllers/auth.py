@@ -8,9 +8,7 @@ from app.api.utils import auth as auth_utils
 
 
 async def register(
-        register_obj: RegisterReqModel, 
-        Authorize: AuthJWT,
-        db: AsyncIOMotorClient
+    register_obj: RegisterReqModel, Authorize: AuthJWT, db: AsyncIOMotorClient
 ):
     if await check_existing_email(register_obj.email, db):
         raise HTTPException(
@@ -26,7 +24,9 @@ async def register(
 
     user = await auth_crud.register(register_obj, db)
     if user:
-        tokens = await auth_utils.create_access_and_refresh_token(Authorize=Authorize, uuid=user['uuid'])
+        tokens = await auth_utils.create_access_and_refresh_token(
+            Authorize=Authorize, uuid=user["uuid"]
+        )
     else:
         raise HTTPException(
             status_code=422,
@@ -38,25 +38,22 @@ async def register(
     return RegisterResModel(
         status="success",
         message="User Registered Successfully",
-        tokens = tokens,
-        user_details = user
+        tokens=tokens,
+        user_details=user,
     )
 
 
-async def login(
-        login_obj: LoginReqModel,
-        Authorize: AuthJWT,
-        db: AsyncIOMotorClient
-):
-
+async def login(login_obj: LoginReqModel, Authorize: AuthJWT, db: AsyncIOMotorClient):
     user = await auth_crud.login(login_obj, db)
     if user:
-        tokens = await auth_utils.create_access_and_refresh_token(Authorize=Authorize, uuid=user.uuid)
-    
+        tokens = await auth_utils.create_access_and_refresh_token(
+            Authorize=Authorize, uuid=user.uuid
+        )
+
     return LoginResModel(
         status="success",
         message="User Logged In Successfully",
-        tokens = tokens,
+        tokens=tokens,
     )
 
 

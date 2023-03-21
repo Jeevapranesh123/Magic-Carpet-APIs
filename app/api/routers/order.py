@@ -15,31 +15,33 @@ async def create_order(
     db: AsyncIOMotorClient = Depends(get_database),
 ):
     print(Authorize.get_jwt_subject())
-    res = await order_controller.checkout(checkout_obj,Authorize, db)
+    res = await order_controller.checkout(checkout_obj, Authorize, db)
     return res
 
 
-@router.post("/update", response_model="")
-async def update_order():
-    pass
+# Future Implementation
+
+# @router.post("/update", response_model="")
+# async def update_order():
+#     pass
 
 
-# TODO Prohibit deletion of orders, instead mark them as cancelled
-@router.post("/delete", response_model="")
-async def delete_order():
-    pass
+# # TODO Prohibit deletion of orders, instead mark them as cancelled
+# @router.post("/delete", response_model="")
+# async def delete_order():
+#     pass
 
 
-@router.get("/get", response_model="")
-async def get_order():
-    pass
+# @router.get("/get", response_model="")
+# async def get_order():
+#     pass
 
 
-@router.get("/get_all", response_model="")
-async def get_all_orders():
-    pass
+# @router.get("/get_all", response_model="")
+# async def get_all_orders():
+#     pass
 
 
-@router.get("/get_all_by_user", response_model="")
-async def get_all_orders_by_user():
-    pass
+# @router.get("/get_all_by_user", response_model="")
+# async def get_all_orders_by_user():
+#     pass

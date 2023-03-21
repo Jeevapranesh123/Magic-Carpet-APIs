@@ -10,8 +10,8 @@ from fastapi import HTTPException
 from app.core.config import settings
 
 from passlib.context import CryptContext
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 async def check_existing_email(
@@ -66,15 +66,13 @@ async def login(login_obj, conn: AsyncIOMotorClient):
         if verify_password(login_obj.password, data["password"]):
             user = User(**data)
             return user
-        raise HTTPException(
-            status_code=401, detail="Incorrect email or password"
-        )
-    raise HTTPException(
-        status_code=401, detail="Incorrect email or password"
-    )
+        raise HTTPException(status_code=401, detail="Incorrect email or password")
+    raise HTTPException(status_code=401, detail="Incorrect email or password")
+
 
 def get_password_hash(password):
     return pwd_context.hash(password)
+
 
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)

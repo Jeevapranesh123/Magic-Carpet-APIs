@@ -14,6 +14,7 @@ class RegisterResModel(ResBaseModel):
     tokens: Optional[dict]
     user_details: dict
 
+
 class User(BaseModel):
     uuid: str
     name: str
@@ -24,6 +25,7 @@ class User(BaseModel):
 class LoginReqModel(BaseModel):
     email: str
     password: str
+
 
 class LoginResModel(ResBaseModel):
     tokens: Optional[dict]

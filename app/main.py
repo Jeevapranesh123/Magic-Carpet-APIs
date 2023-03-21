@@ -5,7 +5,6 @@ import sys
 sys.dont_write_bytecode = True
 
 import uvicorn
-from elasticapm.contrib.starlette import ElasticAPM, make_apm_client
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from fastapi.openapi.utils import get_openapi
@@ -17,7 +16,7 @@ from starlette.exceptions import HTTPException
 from starlette.middleware.cors import CORSMiddleware
 
 from app.api import router as api_router
-from app.core.config import auth_jwt_settings, env_with_secrets, settings
+from app.core.config import auth_jwt_settings, settings
 from app.core.errors import (
     authjwt_exception_handler,
     http422_error_handler,
@@ -73,19 +72,6 @@ def custom_openapi():
 
 
 app.openapi = custom_openapi
-
-if "ELASTIC_APM_SERVER_URL" in env_with_secrets:
-    try:
-        elastic_apm = make_apm_client(
-            {
-                "SERVICE_NAME": settings.PROJECT_NAME,
-                "SERVER_URL": env_with_secrets["ELASTIC_APM_SERVER_URL"],
-                "DEBUG": True,
-            }
-        )
-        app.add_middleware(ElasticAPM, client=elastic_apm)
-    except Exception as e:
-        print(f"Problem Setting Up Elastic APM => {e}")
 
 # Set all CORS enabled origins
 app.add_middleware(
