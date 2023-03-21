@@ -4,31 +4,27 @@ Simple implementation of E-Commerce book store APIs using [FastAPI](https://fast
 
 #### Getting Started
 
-1. Install Docker Engine [For Windows](https://docs.docker.com/desktop/windows/install/) , [For MacOSX](https://docs.docker.com/desktop/mac/install/) , [For Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
+1. Install Docker Engine and Docker Compose
 
-2. Install Docker Compose [For Ubuntu](https://docs.docker.com/compose/install/)
+2. Clone this Repository and cd /to/the/repository
 
+3. Create Public and Private keys for authentication
 ```
-Note: Docker Compose Comes Default with Docker Desktop for Windows and MacOSX
+$ openssl genrsa -out private.pem 2048
+$ openssl rsa -in private.pem -outform PEM -pubout -out public.pem
 ```
 
-3. Clone this Repository and cd /to/the/repository
+4. Create Environment file from example.env
 
-4. Create Public and Private keys for authentication
-```openssl genrsa -out private.pem 2048```
-```openssl rsa -in private.pem -outform PEM -pubout -out public.pem```
+5. Run ```docker-compose up```
 
-5. Create Environment file from example.env
+6. You should be able to see the Container getting build and once Built you should be able to see the container Logs
 
-6. Run ```docker-compose up```
+7. Once the build is done and the containers are up in running head to [Localhost](http://127.0.0.1/docs) in you Computer Browser to see swagger documentation of the APIs
 
-7. You should be able to see the Container getting build and once Built you should be able to see the container Logs
+8. That's it You are Good to go!
 
-8. Once the build is done and the containers are up in running head to [Localhost](http://127.0.0.1/docs) in you Computer Browser to see swagger documentation of the APIs
-
-9. That's it You are Good to go!
-
-10. Report Bugs to `jeevadev02@gmail.com`
+9. Report Bugs to `jeevadev02@gmail.com`
 
 
 #### API Documentation
