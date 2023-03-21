@@ -14,8 +14,9 @@ async def create_order(
     Authorize: AuthJWT = Depends(),
     db: AsyncIOMotorClient = Depends(get_database),
 ):
+    print(Authorize.get_jwt_subject())
     res = await order_controller.checkout(checkout_obj,Authorize, db)
-    pass
+    return res
 
 
 @router.post("/update", response_model="")

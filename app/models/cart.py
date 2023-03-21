@@ -19,7 +19,6 @@ class Items(BaseModel):
     item_id: str
     name: str
     quantity: int
-    price: int
 
 class Cart(BaseModel):
     id: str
