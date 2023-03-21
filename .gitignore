@@ -2,3 +2,5 @@ venv
 venv/
 *.pem
 .env
+public.pem
+private.pem
