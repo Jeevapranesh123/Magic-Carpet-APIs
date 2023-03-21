@@ -22,6 +22,8 @@ $ openssl rsa -in private.pem -outform PEM -pubout -out public.pem
 
 7. Once the build is done and the containers are up in running head to [Localhost](http://127.0.0.1/docs) in you Computer Browser to see swagger documentation of the APIs
 
+8. Also you can use [Postman](https://www.postman.com/) to make API calls to the APIs by importing the ```Magic Carpet.postman_collection.json``` file in Postman and setting the ```{{base_url}}``` variable to ```http://127.0.0.1```
+
 8. That's it You are Good to go!
 
 9. Report Bugs to `jeevadev02@gmail.com`
@@ -39,3 +41,4 @@ Features:
 6. Checkout cart
 
 Note: All APIs are protected by JWT Authentication and Authorization, hence to make API calls acquire a JWT token from the Login API and use it in the Authorization Header as Bearer Tokens.
+
