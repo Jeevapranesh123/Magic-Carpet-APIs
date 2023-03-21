@@ -55,13 +55,3 @@ async def login(login_obj: LoginReqModel, Authorize: AuthJWT, db: AsyncIOMotorCl
         message="User Logged In Successfully",
         tokens=tokens,
     )
-
-
-# async def gen_and_save_tokens(
-#     uuid: str, Authorize: AuthJWT, db: AsyncIOMotorClient
-# ) -> dict:
-#     tokens = await auth_utils.create_access_and_refresh_token(
-#         Authorize=Authorize, uuid=uuid, mongodb=mongodb
-#     )
-#     await auth_utils.save_tokens(uuid, tokens, mongodb)
-#     return tokens
