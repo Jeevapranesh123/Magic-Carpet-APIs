@@ -8,13 +8,13 @@ Simple implementation of E-Commerce book store APIs using [FastAPI](https://fast
 
 2. Clone this Repository and cd /to/the/repository
 
-3. Create Public and Private keys for authentication
+3. Create Public and Private keys for authentication in the project root directory
 ```
 $ openssl genrsa -out private.pem 2048
 $ openssl rsa -in private.pem -outform PEM -pubout -out public.pem
 ```
 
-4. Create Environment file from example.env
+4. Create Environment file ```.env``` from example.env
 
 5. Run ```docker-compose up```
 
@@ -38,4 +38,4 @@ Features:
 5. Remove books from cart
 6. Checkout cart
 
-Note: All APIs are protected by JWT Authentication and Authorization, hence to make API calls acquire a JWT token from the Login API and use it in the Authorization Header of the API call
+Note: All APIs are protected by JWT Authentication and Authorization, hence to make API calls acquire a JWT token from the Login API and use it in the Authorization Header as Bearer Tokens.
